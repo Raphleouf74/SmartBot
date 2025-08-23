@@ -1,0 +1,802 @@
+[
+  {
+    "question": "Quelle est la capitale de l'Allemagne ?",
+    "réponse": "berlin"
+  },
+  {
+    "question": "Quelle est la capitale de l'Espagne ?",
+    "réponse": "madrid"
+  },
+  {
+    "question": "Quelle est la capitale de l'Italie ?",
+    "réponse": "rome"
+  },
+  {
+    "question": "Quelle est la capitale du Japon ?",
+    "réponse": "tokyo"
+  },
+  {
+    "question": "Quelle est la capitale du Canada ?",
+    "réponse": "ottawa"
+  },
+  {
+    "question": "Quelle est la capitale du Brésil ?",
+    "réponse": "brasilia"
+  },
+  {
+    "question": "Quelle est la capitale de la Russie ?",
+    "réponse": "moscou"
+  },
+  {
+    "question": "Quelle est la capitale de l'Australie ?",
+    "réponse": "canberra"
+  },
+  {
+    "question": "Quelle est la capitale du Portugal ?",
+    "réponse": "lisbonne"
+  },
+  {
+    "question": "Quelle est la capitale de la Belgique ?",
+    "réponse": "bruxelles"
+  },
+  {
+    "question": "Combien font 12 + 8 ?",
+    "réponse": "20"
+  },
+  {
+    "question": "Combien font 15 - 7 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 9 x 9 ?",
+    "réponse": "81"
+  },
+  {
+    "question": "Combien font 100 ÷ 4 ?",
+    "réponse": "25"
+  },
+  {
+    "question": "Combien font 7 x 8 ?",
+    "réponse": "56"
+  },
+  {
+    "question": "Combien font 45 ÷ 9 ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Combien font 3² ?",
+    "réponse": "9"
+  },
+  {
+    "question": "Combien font 10 x 12 ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Combien font 64 ÷ 8 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 5! (factorielle de 5) ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quelle est la planète la plus grande du système solaire ?",
+    "réponse": "jupiter"
+  },
+  {
+    "question": "Quel est l'élément chimique dont le symbole est O ?",
+    "réponse": "oxygène"
+  },
+  {
+    "question": "Quel gaz les plantes absorbent-elles ?",
+    "réponse": "dioxyde de carbone"
+  },
+  {
+    "question": "Combien de cœurs possède une pieuvre ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quelle est la formule chimique de l'eau ?",
+    "réponse": "h2o"
+  },
+  {
+    "question": "Quel est le métal liquide à température ambiante ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quel organe pompe le sang dans le corps humain ?",
+    "réponse": "cœur"
+  },
+  {
+    "question": "Quelle étoile est au centre de notre système solaire ?",
+    "réponse": "soleil"
+  },
+  {
+    "question": "Quel est le plus grand organe du corps humain ?",
+    "réponse": "peau"
+  },
+  {
+    "question": "Qui a peint la Joconde ?",
+    "réponse": "léonard de vinci"
+  },
+  {
+    "question": "Quel écrivain a écrit 'Les Misérables' ?",
+    "réponse": "victor hugo"
+  },
+  {
+    "question": "Dans quel pays est situé le Taj Mahal ?",
+    "réponse": "inde"
+  },
+  {
+    "question": "Quel est le plus long fleuve du monde ?",
+    "réponse": "nil"
+  },
+  {
+    "question": "Quelle est la langue officielle du Mexique ?",
+    "réponse": "espagnol"
+  },
+  {
+    "question": "Quel est le pays d'origine du groupe 'The Beatles' ?",
+    "réponse": "royaume-uni"
+  },
+  {
+    "question": "Quel artiste est surnommé le Roi de la Pop ?",
+    "réponse": "michael jackson"
+  },
+  {
+    "question": "Qui a écrit 'Roméo et Juliette' ?",
+    "réponse": "william shakespeare"
+  },
+  {
+    "question": "Quel pays a inventé le manga ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Dans quel pays trouve-t-on la Grande Muraille ?",
+    "réponse": "chine"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de football ?",
+    "réponse": "11"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de basketball ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Quel pays a gagné la Coupe du Monde 2018 de football ?",
+    "réponse": "france"
+  },
+  {
+    "question": "Combien de points vaut un panier à 3 points au basket ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quel sport pratique Usain Bolt ?",
+    "réponse": "athlétisme"
+  },
+  {
+    "question": "Dans quel sport utilise-t-on une raquette et un volant ?",
+    "réponse": "badminton"
+  },
+  {
+    "question": "Combien de trous dans un parcours de golf standard ?",
+    "réponse": "18"
+  },
+  {
+    "question": "Quel pays a inventé le judo ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Quel est le surnom de Michael Jordan ?",
+    "réponse": "air jordan"
+  },
+  {
+    "question": "Quel sport se joue à Wimbledon ?",
+    "réponse": "tennis"
+  },
+  {
+    "question": "Quelle est la capitale de l'Allemagne ?",
+    "réponse": "berlin"
+  },
+  {
+    "question": "Quelle est la capitale de l'Espagne ?",
+    "réponse": "madrid"
+  },
+  {
+    "question": "Quelle est la capitale de l'Italie ?",
+    "réponse": "rome"
+  },
+  {
+    "question": "Quelle est la capitale du Japon ?",
+    "réponse": "tokyo"
+  },
+  {
+    "question": "Quelle est la capitale du Canada ?",
+    "réponse": "ottawa"
+  },
+  {
+    "question": "Quelle est la capitale du Brésil ?",
+    "réponse": "brasilia"
+  },
+  {
+    "question": "Quelle est la capitale de la Russie ?",
+    "réponse": "moscou"
+  },
+  {
+    "question": "Quelle est la capitale de l'Australie ?",
+    "réponse": "canberra"
+  },
+  {
+    "question": "Quelle est la capitale du Portugal ?",
+    "réponse": "lisbonne"
+  },
+  {
+    "question": "Quelle est la capitale de la Belgique ?",
+    "réponse": "bruxelles"
+  },
+  {
+    "question": "Combien font 12 + 8 ?",
+    "réponse": "20"
+  },
+  {
+    "question": "Combien font 15 - 7 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 9 x 9 ?",
+    "réponse": "81"
+  },
+  {
+    "question": "Combien font 100 ÷ 4 ?",
+    "réponse": "25"
+  },
+  {
+    "question": "Combien font 7 x 8 ?",
+    "réponse": "56"
+  },
+  {
+    "question": "Combien font 45 ÷ 9 ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Combien font 3² ?",
+    "réponse": "9"
+  },
+  {
+    "question": "Combien font 10 x 12 ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Combien font 64 ÷ 8 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 5! (factorielle de 5) ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quelle est la planète la plus grande du système solaire ?",
+    "réponse": "jupiter"
+  },
+  {
+    "question": "Quel est l'élément chimique dont le symbole est O ?",
+    "réponse": "oxygène"
+  },
+  {
+    "question": "Quel gaz les plantes absorbent-elles ?",
+    "réponse": "dioxyde de carbone"
+  },
+  {
+    "question": "Combien de cœurs possède une pieuvre ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quelle est la formule chimique de l'eau ?",
+    "réponse": "h2o"
+  },
+  {
+    "question": "Quel est le métal liquide à température ambiante ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quel organe pompe le sang dans le corps humain ?",
+    "réponse": "cœur"
+  },
+  {
+    "question": "Quelle étoile est au centre de notre système solaire ?",
+    "réponse": "soleil"
+  },
+  {
+    "question": "Quel est le plus grand organe du corps humain ?",
+    "réponse": "peau"
+  },
+  {
+    "question": "Qui a peint la Joconde ?",
+    "réponse": "léonard de vinci"
+  },
+  {
+    "question": "Quel écrivain a écrit 'Les Misérables' ?",
+    "réponse": "victor hugo"
+  },
+  {
+    "question": "Dans quel pays est situé le Taj Mahal ?",
+    "réponse": "inde"
+  },
+  {
+    "question": "Quel est le plus long fleuve du monde ?",
+    "réponse": "nil"
+  },
+  {
+    "question": "Quelle est la langue officielle du Mexique ?",
+    "réponse": "espagnol"
+  },
+  {
+    "question": "Quel est le pays d'origine du groupe 'The Beatles' ?",
+    "réponse": "royaume-uni"
+  },
+  {
+    "question": "Quel artiste est surnommé le Roi de la Pop ?",
+    "réponse": "michael jackson"
+  },
+  {
+    "question": "Qui a écrit 'Roméo et Juliette' ?",
+    "réponse": "william shakespeare"
+  },
+  {
+    "question": "Quel pays a inventé le manga ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Dans quel pays trouve-t-on la Grande Muraille ?",
+    "réponse": "chine"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de football ?",
+    "réponse": "11"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de basketball ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Quel pays a gagné la Coupe du Monde 2018 de football ?",
+    "réponse": "france"
+  },
+  {
+    "question": "Combien de points vaut un panier à 3 points au basket ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quel sport pratique Usain Bolt ?",
+    "réponse": "athlétisme"
+  },
+  {
+    "question": "Dans quel sport utilise-t-on une raquette et un volant ?",
+    "réponse": "badminton"
+  },
+  {
+    "question": "Combien de trous dans un parcours de golf standard ?",
+    "réponse": "18"
+  },
+  {
+    "question": "Quel pays a inventé le judo ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Quel est le surnom de Michael Jordan ?",
+    "réponse": "air jordan"
+  },
+  {
+    "question": "Quel sport se joue à Wimbledon ?",
+    "réponse": "tennis"
+  },
+  {
+    "question": "Quelle est la capitale de l'Allemagne ?",
+    "réponse": "berlin"
+  },
+  {
+    "question": "Quelle est la capitale de l'Espagne ?",
+    "réponse": "madrid"
+  },
+  {
+    "question": "Quelle est la capitale de l'Italie ?",
+    "réponse": "rome"
+  },
+  {
+    "question": "Quelle est la capitale du Japon ?",
+    "réponse": "tokyo"
+  },
+  {
+    "question": "Quelle est la capitale du Canada ?",
+    "réponse": "ottawa"
+  },
+  {
+    "question": "Quelle est la capitale du Brésil ?",
+    "réponse": "brasilia"
+  },
+  {
+    "question": "Quelle est la capitale de la Russie ?",
+    "réponse": "moscou"
+  },
+  {
+    "question": "Quelle est la capitale de l'Australie ?",
+    "réponse": "canberra"
+  },
+  {
+    "question": "Quelle est la capitale du Portugal ?",
+    "réponse": "lisbonne"
+  },
+  {
+    "question": "Quelle est la capitale de la Belgique ?",
+    "réponse": "bruxelles"
+  },
+  {
+    "question": "Combien font 12 + 8 ?",
+    "réponse": "20"
+  },
+  {
+    "question": "Combien font 15 - 7 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 9 x 9 ?",
+    "réponse": "81"
+  },
+  {
+    "question": "Combien font 100 ÷ 4 ?",
+    "réponse": "25"
+  },
+  {
+    "question": "Combien font 7 x 8 ?",
+    "réponse": "56"
+  },
+  {
+    "question": "Combien font 45 ÷ 9 ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Combien font 3² ?",
+    "réponse": "9"
+  },
+  {
+    "question": "Combien font 10 x 12 ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Combien font 64 ÷ 8 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 5! (factorielle de 5) ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quelle est la planète la plus grande du système solaire ?",
+    "réponse": "jupiter"
+  },
+  {
+    "question": "Quel est l'élément chimique dont le symbole est O ?",
+    "réponse": "oxygène"
+  },
+  {
+    "question": "Quel gaz les plantes absorbent-elles ?",
+    "réponse": "dioxyde de carbone"
+  },
+  {
+    "question": "Combien de cœurs possède une pieuvre ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quelle est la formule chimique de l'eau ?",
+    "réponse": "h2o"
+  },
+  {
+    "question": "Quel est le métal liquide à température ambiante ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quel organe pompe le sang dans le corps humain ?",
+    "réponse": "cœur"
+  },
+  {
+    "question": "Quelle étoile est au centre de notre système solaire ?",
+    "réponse": "soleil"
+  },
+  {
+    "question": "Quel est le plus grand organe du corps humain ?",
+    "réponse": "peau"
+  },
+  {
+    "question": "Qui a peint la Joconde ?",
+    "réponse": "léonard de vinci"
+  },
+  {
+    "question": "Quel écrivain a écrit 'Les Misérables' ?",
+    "réponse": "victor hugo"
+  },
+  {
+    "question": "Dans quel pays est situé le Taj Mahal ?",
+    "réponse": "inde"
+  },
+  {
+    "question": "Quel est le plus long fleuve du monde ?",
+    "réponse": "nil"
+  },
+  {
+    "question": "Quelle est la langue officielle du Mexique ?",
+    "réponse": "espagnol"
+  },
+  {
+    "question": "Quel est le pays d'origine du groupe 'The Beatles' ?",
+    "réponse": "royaume-uni"
+  },
+  {
+    "question": "Quel artiste est surnommé le Roi de la Pop ?",
+    "réponse": "michael jackson"
+  },
+  {
+    "question": "Qui a écrit 'Roméo et Juliette' ?",
+    "réponse": "william shakespeare"
+  },
+  {
+    "question": "Quel pays a inventé le manga ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Dans quel pays trouve-t-on la Grande Muraille ?",
+    "réponse": "chine"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de football ?",
+    "réponse": "11"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de basketball ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Quel pays a gagné la Coupe du Monde 2018 de football ?",
+    "réponse": "france"
+  },
+  {
+    "question": "Combien de points vaut un panier à 3 points au basket ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quel sport pratique Usain Bolt ?",
+    "réponse": "athlétisme"
+  },
+  {
+    "question": "Dans quel sport utilise-t-on une raquette et un volant ?",
+    "réponse": "badminton"
+  },
+  {
+    "question": "Combien de trous dans un parcours de golf standard ?",
+    "réponse": "18"
+  },
+  {
+    "question": "Quel pays a inventé le judo ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Quel est le surnom de Michael Jordan ?",
+    "réponse": "air jordan"
+  },
+  {
+    "question": "Quel sport se joue à Wimbledon ?",
+    "réponse": "tennis"
+  },
+  {
+    "question": "Quelle est la capitale de l'Allemagne ?",
+    "réponse": "berlin"
+  },
+  {
+    "question": "Quelle est la capitale de l'Espagne ?",
+    "réponse": "madrid"
+  },
+  {
+    "question": "Quelle est la capitale de l'Italie ?",
+    "réponse": "rome"
+  },
+  {
+    "question": "Quelle est la capitale du Japon ?",
+    "réponse": "tokyo"
+  },
+  {
+    "question": "Quelle est la capitale du Canada ?",
+    "réponse": "ottawa"
+  },
+  {
+    "question": "Quelle est la capitale du Brésil ?",
+    "réponse": "brasilia"
+  },
+  {
+    "question": "Quelle est la capitale de la Russie ?",
+    "réponse": "moscou"
+  },
+  {
+    "question": "Quelle est la capitale de l'Australie ?",
+    "réponse": "canberra"
+  },
+  {
+    "question": "Quelle est la capitale du Portugal ?",
+    "réponse": "lisbonne"
+  },
+  {
+    "question": "Quelle est la capitale de la Belgique ?",
+    "réponse": "bruxelles"
+  },
+  {
+    "question": "Combien font 12 + 8 ?",
+    "réponse": "20"
+  },
+  {
+    "question": "Combien font 15 - 7 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 9 x 9 ?",
+    "réponse": "81"
+  },
+  {
+    "question": "Combien font 100 ÷ 4 ?",
+    "réponse": "25"
+  },
+  {
+    "question": "Combien font 7 x 8 ?",
+    "réponse": "56"
+  },
+  {
+    "question": "Combien font 45 ÷ 9 ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Combien font 3² ?",
+    "réponse": "9"
+  },
+  {
+    "question": "Combien font 10 x 12 ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Combien font 64 ÷ 8 ?",
+    "réponse": "8"
+  },
+  {
+    "question": "Combien font 5! (factorielle de 5) ?",
+    "réponse": "120"
+  },
+  {
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quelle est la planète la plus grande du système solaire ?",
+    "réponse": "jupiter"
+  },
+  {
+    "question": "Quel est l'élément chimique dont le symbole est O ?",
+    "réponse": "oxygène"
+  },
+  {
+    "question": "Quel gaz les plantes absorbent-elles ?",
+    "réponse": "dioxyde de carbone"
+  },
+  {
+    "question": "Combien de cœurs possède une pieuvre ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quelle est la formule chimique de l'eau ?",
+    "réponse": "h2o"
+  },
+  {
+    "question": "Quel est le métal liquide à température ambiante ?",
+    "réponse": "mercure"
+  },
+  {
+    "question": "Quel organe pompe le sang dans le corps humain ?",
+    "réponse": "cœur"
+  },
+  {
+    "question": "Quelle étoile est au centre de notre système solaire ?",
+    "réponse": "soleil"
+  },
+  {
+    "question": "Quel est le plus grand organe du corps humain ?",
+    "réponse": "peau"
+  },
+  {
+    "question": "Qui a peint la Joconde ?",
+    "réponse": "léonard de vinci"
+  },
+  {
+    "question": "Quel écrivain a écrit 'Les Misérables' ?",
+    "réponse": "victor hugo"
+  },
+  {
+    "question": "Dans quel pays est situé le Taj Mahal ?",
+    "réponse": "inde"
+  },
+  {
+    "question": "Quel est le plus long fleuve du monde ?",
+    "réponse": "nil"
+  },
+  {
+    "question": "Quelle est la langue officielle du Mexique ?",
+    "réponse": "espagnol"
+  },
+  {
+    "question": "Quel est le pays d'origine du groupe 'The Beatles' ?",
+    "réponse": "royaume-uni"
+  },
+  {
+    "question": "Quel artiste est surnommé le Roi de la Pop ?",
+    "réponse": "michael jackson"
+  },
+  {
+    "question": "Qui a écrit 'Roméo et Juliette' ?",
+    "réponse": "william shakespeare"
+  },
+  {
+    "question": "Quel pays a inventé le manga ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Dans quel pays trouve-t-on la Grande Muraille ?",
+    "réponse": "chine"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de football ?",
+    "réponse": "11"
+  },
+  {
+    "question": "Combien de joueurs dans une équipe de basketball ?",
+    "réponse": "5"
+  },
+  {
+    "question": "Quel pays a gagné la Coupe du Monde 2018 de football ?",
+    "réponse": "france"
+  },
+  {
+    "question": "Combien de points vaut un panier à 3 points au basket ?",
+    "réponse": "3"
+  },
+  {
+    "question": "Quel sport pratique Usain Bolt ?",
+    "réponse": "athlétisme"
+  },
+  {
+    "question": "Dans quel sport utilise-t-on une raquette et un volant ?",
+    "réponse": "badminton"
+  },
+  {
+    "question": "Combien de trous dans un parcours de golf standard ?",
+    "réponse": "18"
+  },
+  {
+    "question": "Quel pays a inventé le judo ?",
+    "réponse": "japon"
+  },
+  {
+    "question": "Quel est le surnom de Michael Jordan ?",
+    "réponse": "air jordan"
+  },
+  {
+    "question": "Quel sport se joue à Wimbledon ?",
+    "réponse": "tennis"
+  }
+]
