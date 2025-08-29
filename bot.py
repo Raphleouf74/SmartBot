@@ -4,7 +4,6 @@ from discord.ui import View, Button
 from datetime import timedelta
 import asyncio
 import random
-import random
 import re
 import json
 from flask import Flask, jsonify, request, abort
@@ -14,6 +13,7 @@ import os
 # Récupération des variables d'environnement
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")  # ton token de bot
 API_KEY = os.getenv("API_KEY")  # clé secrète API
+OWNER_ID = 1067745915915481098
 
 # Init bot Discord
 intents = discord.Intents.default()
@@ -124,6 +124,16 @@ embed2 = discord.Embed(
 )
 embed2.add_field(name="+shutdown", value="Éteins le bot", inline=False)
 embed2.add_field(name="+ping", value="Annonce le ping du bot", inline=False)
+embed2.add_field(name="+start_tournoi", value="Lance le tournoi du jour", inline=False)
+embed2.add_field(name="+end_tournoi", value="Termine le tournoi du jour", inline=False)
+embed2.add_field(name="COMMANDES POUR LES TOURNOIS:", value="",inline=False)
+embed2.add_field(name="+game [mode]", value="Choisit un jeu pour le tournoi (pfc, quiz, pendu ou random)", inline=False)
+embed2.add_field(name="+pick", value="Tire au hasard deux joueurs pour un match", inline=False)
+embed2.add_field(name="+victoire [user]", value="Déclare une victoire à un joueur (+3 points)", inline=False)
+embed2.add_field(name="+defaite [user]", value="Déclare une défaite à un joueur (0 point)", inline=False)
+embed2.add_field(name="+egalite [user1] [user2]", value="Déclare une égalité entre deux joueurs (+1 point chacun)", inline=False)
+embed2.add_field(name="+panel", value="Affiche le panel du Chef de Tournoi", inline=False)
+embed2.add_field(name="+addpoints [user] [points]", value="Ajoute des points à un user", inline=False)
 pages.append(embed2)
 
 # Page 3 : Commandes pour tous les membres
@@ -136,6 +146,13 @@ embed3.add_field(name="+mate", value="Envoie une demande de partenaire de jeu au
 embed3.add_field(name="+userinfo [user]", value="Obtenir les infos d'un utilisateur", inline=False)
 embed3.add_field(name="+serverinfo", value="Donne les infos du serveur", inline=False)
 embed3.add_field(name="+remind [time]", value="Crée un rappel pour soi dans un temps donné", inline=False)
+embed3.add_field(name="+pfc [pierre/feuille/ciseaux]", value="Joue au jeu Pierre-Feuille-Ciseaux contre le bot", inline=False)
+embed3.add_field(name="+pendu", value="Démarre une partie de pendu", inline=False)
+embed3.add_field(name="+lettre", value="Démarre un quiz", inline=False)
+embed3.add_field(name="+quiz", value="Démarre un quiz", inline=False)
+embed3.add_field(name="DURANT LES TOURNOIS:", value="", inline=False)
+embed3.add_field(name="+join_tournoi", value="Rejoindre le tournoi du jour", inline=False)
+embed3.add_field(name="+classement_jour", value="Afficher le classement du jour", inline=False)
 embed3.add_field(name="Plus de commandes", value="D'autres commandes d'aides viendront ultérieurement", inline=False)
 pages.append(embed3)
 
@@ -263,11 +280,6 @@ async def unmute(ctx, member: discord.Member):
         await ctx.send("❌ Ce membre n'a pas reçu de sanction concernant le chat.")
 
 
-# -------------------------
-# Commande shutdown
-# -------------------------
-OWNER_ID = 1067745915915481098
-
 @bot.command()
 async def shutdown(ctx):
     if ctx.author.id != OWNER_ID:
@@ -317,9 +329,6 @@ async def mate(ctx):
     )
     view = MateView(ctx.author)
     await ctx.send(embed=embed, view=view)
-
-
-
 
 
 @bot.command()
@@ -453,7 +462,6 @@ async def on_message_delete(message):
 # -----------------
 #   JEUX
 #---------------------
-import random
 
 # -------------------------
 # Jeu : Pierre - Feuille - Ciseaux
@@ -789,7 +797,6 @@ async def panel(ctx):
     await ctx.send(embed=embed, view=view)
 
     
-from discord.ui import View, Button
 
 class PanelTournoi(View):
     def __init__(self, author):
