@@ -7,27 +7,41 @@ import random
 import random
 import re
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort
 from threading import Thread
 import os
 
+# Récupération des variables d'environnement
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")  # ton token de bot
+API_KEY = os.getenv("API_KEY")  # clé secrète API
+
+# Init bot Discord
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+# Init Flask
 app = Flask(__name__)
 
-# Exemple route API
 @app.route("/status")
 def status():
+    key = request.args.get("key")
+    if key != API_KEY:
+        abort(403)  # accès refusé
+
     return jsonify({
-        "online": True,
+        "status": "running",
+        "bot": str(bot.user) if bot.user else "starting...",
         "servers": len(bot.guilds),
         "users": sum(g.member_count for g in bot.guilds)
     })
 
-def run():
+def run_flask():
     port = int(os.environ.get("PORT", 5000))  # Render fournit PORT automatiquement
     app.run(host="0.0.0.0", port=port)
 
 def keep_alive():
-    t = Thread(target=run)
+    t = Thread(target=run_flask)
     t.start()
 
 
@@ -814,6 +828,6 @@ async def on_ready():
 # ------------------------- 
 # Lancer le bot 
 # ------------------------- 
-
-bot.run("")
-keep_alive()
+if __name__ == "__main__":
+    keep_alive()
+    bot.run(DISCORD_TOKEN)
