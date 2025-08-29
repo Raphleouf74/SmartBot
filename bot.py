@@ -7,6 +7,27 @@ import random
 import random
 import re
 import json
+from flask import Flask, jsonify
+from threading import Thread
+
+app = Flask(__name__)
+
+# Exemple route API
+@app.route("/status")
+def status():
+    return jsonify({
+        "online": True,
+        "servers": len(bot.guilds),
+        "users": sum(g.member_count for g in bot.guilds)
+    })
+
+def run():
+    app.run(host="0.0.0.0", port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
 
 with open("questions.json", "r", encoding="utf-8") as f:
     questions_quiz = json.load(f)
@@ -186,7 +207,7 @@ async def unmute(ctx, member: discord.Member):
 # -------------------------
 # Commande shutdown
 # -------------------------
-OWNER_ID = "YOUR_OWNER_ID"
+OWNER_ID = 1067745915915481098
 
 @bot.command()
 async def shutdown(ctx):
@@ -744,16 +765,16 @@ class PanelTournoi(View):
         await interaction.response.send_message("📊 Classement du jour affiché", ephemeral=True)
 
 
-CHANNEL_GENERAL = "GENERALCHANNEL"  
-CHANNEL_GAGNANTS = "WINNERSCHANNEL"  # 🏆 gagnants-du-jour
-CHANNEL_PLANNING = "PLANNINGCHANNEL"  # 📅 organisation-et-planning
-CHANNEL_REGLEMENT = "RULESCHANNEL"  # 📜 reglement
+CHANNEL_GENERAL = 1408795790515634297  # 💬 general-tournois
+CHANNEL_GAGNANTS = 1408795241003352126  # 🏆 gagnants-du-jour
+CHANNEL_PLANNING = 1408795407336865832  # 📅 organisation-et-planning
+CHANNEL_REGLEMENT = 1408795561213296691  # 📜 reglement
 from discord.ext import tasks
 
 @tasks.loop(minutes=1)
 async def tournoi_annonce():
     now = datetime.now().strftime("%H:%M")
-    if now == "19:00":  # tous les jours à 19h
+    if now == "19:28":  # tous les jours à 19h
         today = datetime.now().strftime("%Y-%m-%d")
         if today in tournois and "participants" in tournois[today]:
             channel = bot.get_channel(CHANNEL_GAGNANTS)
@@ -769,7 +790,7 @@ async def tournoi_annonce():
 @tasks.loop(minutes=1)
 async def planning_annonce():
     now = datetime.now().strftime("%H:%M")
-    if now == "10:00":  # tous les jours à 10h
+    if now == "19:29":  # tous les jours à 10h
         channel = bot.get_channel(CHANNEL_PLANNING)
         await channel.send("📅 Le tournoi du jour commencera à **15h00** ! Préparez-vous ⚔️")
 
@@ -792,4 +813,5 @@ async def on_ready():
 # Lancer le bot 
 # ------------------------- 
 
-bot.run("YOUR_BOT_ID")
+bot.run("")
+keep_alive()
