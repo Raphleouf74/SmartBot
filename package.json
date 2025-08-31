@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "flask-cors": "^0.0.1"
   }
 }

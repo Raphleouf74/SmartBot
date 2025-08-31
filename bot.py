@@ -7,6 +7,7 @@ import random
 import re
 import json
 from flask import Flask, jsonify, request, abort
+from flask_cors import CORS
 from threading import Thread
 import os
 
@@ -22,6 +23,11 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 # Init Flask
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": ["https://smartdcbot.netlify.app"] ["http://127.0.0.1:5500"]["http://127.0.0.1:5501"]}})
+
+@app.route("/")
+def home():
+    return "✅ SmartBot API est en ligne. Utilise /status pour vérifier l'état du bot."
 
 @app.route("/status")
 def status():
