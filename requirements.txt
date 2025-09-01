@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 discord.py==2.3.2
 audioop-lts
 Flask==3.0.3
 flask-cors
-=======
-discord.py==2.3.2
-audioop-lts
-Flask==3.0.3
-flask-cors
->>>>>>> 520e776c319afb9e4214556e9f036b7deb831507
