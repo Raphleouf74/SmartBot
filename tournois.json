@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "2025-08-23": {
     "participants": {
@@ -46,4 +47,54 @@
       ]
     ]
   }
+=======
+{
+  "2025-08-23": {
+    "participants": {
+      "1067745915915481098": {
+        "pseudo": "r_ml74",
+        "points": 1
+      },
+      "1407139844454351025": {
+        "pseudo": "justeungars574",
+        "points": 4
+      }
+    },
+    "matches": [],
+    "classement": [
+      [
+        "1407139844454351025",
+        {
+          "pseudo": "justeungars574",
+          "points": 4
+        }
+      ],
+      [
+        "1067745915915481098",
+        {
+          "pseudo": "r_ml74",
+          "points": 1
+        }
+      ]
+    ]
+  },
+  "2025-08-26": {
+    "participants": {
+      "1067745915915481098": {
+        "pseudo": "r_ml74",
+        "points": 3
+      }
+    },
+    "matches": [],
+    "classement": [
+      [
+        "1067745915915481098",
+        {
+          "pseudo": "r_ml74",
+          "points": 3
+        }
+      ]
+    ]
+  }
+>>>>>>> 520e776c319afb9e4214556e9f036b7deb831507
 }
