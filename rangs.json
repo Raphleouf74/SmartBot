@@ -1,26 +1,3 @@
-<<<<<<< HEAD
 {
-  "1407139844454351025": {
-    "pseudo": "justeungars574",
-    "podiums_consecutifs": 1,
-    "rang": "Aucun"
-  },
-  "1067745915915481098": {
-    "pseudo": "r_ml74",
-    "podiums_consecutifs": 2,
-    "rang": "Bronze"
-  }
-=======
-{
-  "1407139844454351025": {
-    "pseudo": "justeungars574",
-    "podiums_consecutifs": 1,
-    "rang": "Aucun"
-  },
-  "1067745915915481098": {
-    "pseudo": "r_ml74",
-    "podiums_consecutifs": 2,
-    "rang": "Bronze"
-  }
->>>>>>> 520e776c319afb9e4214556e9f036b7deb831507
+    
 }
