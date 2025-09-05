@@ -10,6 +10,12 @@ from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
 from threading import Thread
 import os
+import wikipedia
+wikipedia.set_lang("fr")  # langue par défaut = français
+from googletrans import Translator
+
+
+
 
 # Récupération des variables d'environnement
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")  # ton token de bot
@@ -870,6 +876,61 @@ async def planning_annonce():
 async def on_ready():
     tournoi_annonce.start()
     print("✅ Bot prêt et système tournoi activé")
+
+
+
+
+
+
+
+
+@bot.command()
+async def wiki(ctx, *, query: str):
+    """Recherche un résumé sur Wikipedia"""
+    try:
+        page = wikipedia.page(query)
+        summary = wikipedia.summary(query, sentences=3)
+
+        embed = discord.Embed(
+            title=f"Wikipedia : {page.title}",
+            url=page.url,
+            description=summary,
+            color=discord.Color.blue()
+        )
+        await ctx.send(embed=embed)
+
+    except wikipedia.exceptions.DisambiguationError as e:
+        await ctx.send(f"⚠️ Plusieurs résultats possibles : {', '.join(e.options[:5])}...")
+    except wikipedia.exceptions.PageError:
+        await ctx.send("❌ Aucun article trouvé.")
+
+
+
+translator = Translator()
+
+@bot.command()
+async def trad(ctx, *, texte: str):
+    """Traduit un texte en français par défaut ou en langue choisie"""
+    try:
+        if " en " in texte:
+            message, langue = texte.rsplit(" en ", 1)
+        else:
+            message, langue = texte, "fr"
+
+        traduction = translator.translate(message, dest=langue)
+        await ctx.send(f"🌍 Traduction ({traduction.src} → {langue}) :\n**{traduction.text}**")
+
+    except Exception as e:
+        await ctx.send("❌ Erreur lors de la traduction.")
+
+
+
+
+
+
+
+
+
 
 
 # ------------------------- 
