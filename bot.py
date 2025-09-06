@@ -905,26 +905,68 @@ async def wiki(ctx, *, query: str):
         await ctx.send("❌ Aucun article trouvé.")
 
 
+from discord.ui import View, Select
 
+LANGUES = {
+    "fr": "Français",
+    "en": "Anglais",
+    "es": "Espagnol",
+    "de": "Allemand",
+    "it": "Italien",
+    "pt": "Portugais",
+    "ru": "Russe",
+    "ja": "Japonais",
+    "zh-cn": "Chinois simplifié",
+    "ar": "Arabe"
+}
+
+class TradView(View):
+    def __init__(self, author):
+        super().__init__(timeout=60)
+        self.author = author
+
+        options = [discord.SelectOption(label=nom, value=code) for code, nom in LANGUES.items()]
+        self.add_item(Select(placeholder="Choisis une langue cible", options=options))
+
+    async def interaction_check(self, interaction):
+        return interaction.user == self.author
+
+    @discord.ui.select(placeholder="Choisis une langue cible", options=[discord.SelectOption(label=nom, value=code) for code, nom in LANGUES.items()])
+    async def select_langue(self, interaction, select):
+        langue = select.values[0]
+        await interaction.response.send_message(
+            f"📝 Écris maintenant ton message à traduire → il sera traduit en **{LANGUES[langue]}**.\n"
+            f"Réponds à ce message dans les **60 secondes**.",
+            ephemeral=True
+        )
+
+        def check(m):
+            return m.author == self.author and m.channel == interaction.channel
+
+        try:
+            message = await bot.wait_for("message", check=check, timeout=60)
+            traduction = GoogleTranslator(source="auto", target=langue).translate(message.content)
+
+            embed = discord.Embed(
+                title="🌍 Traduction",
+                description=f"**Texte original :** {message.content}\n\n**Traduction ({LANGUES[langue]}):** {traduction}",
+                color=discord.Color.green()
+            )
+            await interaction.channel.send(embed=embed)
+
+        except asyncio.TimeoutError:
+            await interaction.followup.send("⏰ Temps écoulé, recommence avec `+trad`.", ephemeral=True)
 
 @bot.command()
-async def trad(ctx, *, texte: str):
-    """Traduit un texte en français par défaut ou en langue choisie"""
-    try:
-        if " en " in texte:
-            message, langue = texte.rsplit(" en ", 1)
-        else:
-            message, langue = texte, "fr"
-
-        traduction = GoogleTranslator(source="auto", target=langue).translate(message)
-        await ctx.send(f"🌍 Traduction ({langue}) :\n**{traduction}**")
-
-    except Exception:
-        await ctx.send("❌ Erreur lors de la traduction.")
-
-
-
-
+async def trad(ctx):
+    """Interface interactive de traduction"""
+    embed = discord.Embed(
+        title="🌍 Traduction interactive",
+        description="Choisis la langue cible dans le menu ci-dessous.",
+        color=discord.Color.blue()
+    )
+    view = TradView(ctx.author)
+    await ctx.send(embed=embed, view=view)
 
 
 
