@@ -1030,9 +1030,16 @@ async def givecoins(ctx, member: discord.Member, amount: int):
 #  Boutique
 # -----------------------------
 SHOP = {
-    "Bronze Role": {"price": 50, "role": "Bronze"},
-    "Argent Role": {"price": 150, "role": "Argent"},
-    "Titre Champion": {"price": 200, "role": None, "desc": "Un titre spécial affiché dans +profil"}
+    
+    "Billet de 10RM$": {"price": 10, "role": None, "desc": "Rien de spécial, vous avez juste un billet :)"},
+    "Billet de 20RM$": {"price": 20, "role": None, "desc": "Toujours rien de spécial, vous pouvez juste flex :)"},
+    "Billet de 100RM$": {"price": 100, "role": None, "desc": "Mais il n'y a rien de spécial à avoir avec ces billets, c'est juste fait pour frimer..."},
+    "Billet de 200RM$": {"price": 200, "role": None, "desc": "Mais tu est Elon Musk pour avoir autant d'argent à dépenser ?"},
+    "Billet de 500RM$": {"price": 500, "role": None, "desc": "Non mais ça va s'arrêter quand ?"},
+    "Rôle VIP": {"price": 750, "role": 1408221998848544878, "desc": "Accès à un salon privé et quelques avantages. Oui c'est cher, mais ça vaut le coup, promis."},
+    "Rôle Premium": {"price": 1000, "role": 1413822835524112505, "desc": "Alors la tu veut vraiment être au dessus des autres en fait ._."}
+
+
 }
 
 @bot.command()
