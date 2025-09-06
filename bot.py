@@ -12,7 +12,7 @@ from threading import Thread
 import os
 import wikipedia
 wikipedia.set_lang("fr")  # langue par défaut = français
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 
 
@@ -906,7 +906,6 @@ async def wiki(ctx, *, query: str):
 
 
 
-translator = Translator()
 
 @bot.command()
 async def trad(ctx, *, texte: str):
@@ -917,12 +916,11 @@ async def trad(ctx, *, texte: str):
         else:
             message, langue = texte, "fr"
 
-        traduction = translator.translate(message, dest=langue)
-        await ctx.send(f"🌍 Traduction ({traduction.src} → {langue}) :\n**{traduction.text}**")
+        traduction = GoogleTranslator(source="auto", target=langue).translate(message)
+        await ctx.send(f"🌍 Traduction ({langue}) :\n**{traduction}**")
 
-    except Exception as e:
+    except Exception:
         await ctx.send("❌ Erreur lors de la traduction.")
-
 
 
 
