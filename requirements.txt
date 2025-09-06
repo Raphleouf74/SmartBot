@@ -5,3 +5,5 @@ flask-cors
 wikipedia
 discord.py
 deep-translator
+asyncio
+yt_dlp

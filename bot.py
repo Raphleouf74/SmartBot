@@ -165,6 +165,8 @@ embed3.add_field(name="+quiz", value="Démarre un quiz", inline=False)
 embed3.add_field(name="DURANT LES TOURNOIS:", value="", inline=False)
 embed3.add_field(name="+join_tournoi", value="Rejoindre le tournoi du jour", inline=False)
 embed3.add_field(name="+classement_jour", value="Afficher le classement du jour", inline=False)
+embed3.add_field(name="+wiki [sujet]", value="Recherche un sujet sur Wikipédia et vous donne la description", inline=False)
+embed3.add_field(name="+trad", value="Choisissez parmi les langues discponibles et traduisez ce que vous voulez", inline=False)
 embed3.add_field(name="Plus de commandes", value="D'autres commandes d'aides viendront ultérieurement", inline=False)
 pages.append(embed3)
 
@@ -680,27 +682,31 @@ async def pick(ctx):
     joueurs = random.sample(participants, 2)
     await ctx.send(f"⚔️ Match du tournoi : <@{joueurs[0]}> VS <@{joueurs[1]}> !")
 
+# -------------------------
+# Commandes : déclarer résultats (donne aussi des coins)
+# -------------------------
 @bot.command()
 @is_chef()
 async def victoire(ctx, member: discord.Member):
-    """Déclarer une victoire"""
-    await addpoints(ctx, member, 3)
-    await ctx.send(f"🏆 Victoire attribuée à {member.mention} (+3 pts)")
+    await addpoints(ctx, member, 3)  # 3 points tournoi
+    update_coins(member.id, 10)      # 10 coins économie
+    await ctx.send(f"🏆 Victoire attribuée à {member.mention} (+3 pts, +10💰)")
 
 @bot.command()
 @is_chef()
 async def defaite(ctx, member: discord.Member):
-    """Déclarer une défaite"""
-    await addpoints(ctx, member, 0)
-    await ctx.send(f"💀 Défaite attribuée à {member.mention} (0 pts)")
+    await addpoints(ctx, member, 0)  # 0 points tournoi
+    update_coins(member.id, 0)       # 0 coin
+    await ctx.send(f"💀 Défaite attribuée à {member.mention} (0 pt, 0💰)")
 
 @bot.command()
 @is_chef()
 async def egalite(ctx, member1: discord.Member, member2: discord.Member):
-    """Déclarer une égalité"""
-    await addpoints(ctx, member1, 1)
+    await addpoints(ctx, member1, 1)  # 1 point tournoi
     await addpoints(ctx, member2, 1)
-    await ctx.send(f"🤝 Égalité entre {member1.mention} et {member2.mention} (+1 pt chacun)")
+    update_coins(member1.id, 3)       # 3 coins chacun
+    update_coins(member2.id, 3)
+    await ctx.send(f"🤝 Égalité entre {member1.mention} et {member2.mention} (+1 pt, +3💰 chacun)")
 
 # -------------------------
 # Commandes joueurs
@@ -970,7 +976,217 @@ async def trad(ctx):
 
 
 
+# -----------------------------
+#       ÉCONOMIE DU BOT
+# -----------------------------
 
+ECONOMY_FILE = "economy.json"
+
+def load_economy():
+    try:
+        with open(ECONOMY_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+def save_economy():
+    with open(ECONOMY_FILE, "w", encoding="utf-8") as f:
+        json.dump(economy, f, indent=2, ensure_ascii=False)
+
+economy = load_economy()
+
+# -----------------------------
+#  Commande : voir ses coins
+# -----------------------------
+@bot.command(aliases=["coins", "balance"])
+async def money(ctx, member: discord.Member = None):
+    member = member or ctx.author
+    user_id = str(member.id)
+
+    coins = economy.get(user_id, {}).get("coins", 0)
+    await ctx.send(f"💰 {member.display_name} possède **{coins} coins**.")
+
+# -----------------------------
+#  Fonction utilitaire : donner/retirer coins
+# -----------------------------
+def update_coins(user_id, amount):
+    if str(user_id) not in economy:
+        economy[str(user_id)] = {"coins": 0}
+    economy[str(user_id)]["coins"] += amount
+    if economy[str(user_id)]["coins"] < 0:
+        economy[str(user_id)]["coins"] = 0
+    save_economy()
+
+# -----------------------------
+#  Commande admin : givecoins
+# -----------------------------
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def givecoins(ctx, member: discord.Member, amount: int):
+    update_coins(member.id, amount)
+    await ctx.send(f"✅ {member.mention} a reçu **{amount} coins**.")
+
+# -----------------------------
+#  Boutique
+# -----------------------------
+SHOP = {
+    "Bronze Role": {"price": 50, "role": "Bronze"},
+    "Argent Role": {"price": 150, "role": "Argent"},
+    "Titre Champion": {"price": 200, "role": None, "desc": "Un titre spécial affiché dans +profil"}
+}
+
+@bot.command()
+async def shop(ctx):
+    embed = discord.Embed(title="🛒 Boutique du serveur", color=discord.Color.green())
+    for item, data in SHOP.items():
+        desc = data.get("desc", "")
+        prix = data["price"]
+        role = f"(Rôle : {data['role']})" if data.get("role") else ""
+        embed.add_field(name=item, value=f"Prix : {prix} 💰 {role} {desc}", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def buy(ctx, *, item: str):
+    user_id = str(ctx.author.id)
+    if item not in SHOP:
+        return await ctx.send("❌ Cet objet n'existe pas dans la boutique.")
+
+    prix = SHOP[item]["price"]
+    if economy.get(user_id, {}).get("coins", 0) < prix:
+        return await ctx.send("❌ Tu n'as pas assez de coins.")
+
+    # Déduire le prix
+    update_coins(ctx.author.id, -prix)
+
+    # Si c'est un rôle
+    role_name = SHOP[item].get("role")
+    if role_name:
+        role = discord.utils.get(ctx.guild.roles, name=role_name)
+        if not role:
+            role = await ctx.guild.create_role(name=role_name)
+        await ctx.author.add_roles(role)
+        await ctx.send(f"✅ Tu as acheté le rôle **{role_name}** !")
+
+    else:
+        await ctx.send(f"✅ Tu as acheté **{item}** !")
+
+import random
+
+# -------------------------
+# 🎲 Coinflip
+# -------------------------
+@bot.command()
+async def coinflip(ctx, choix: str, mise: int):
+    """Pile ou face avec mise de coins"""
+    choix = choix.lower()
+    if choix not in ["pile", "face"]:
+        return await ctx.send("❌ Choisis entre `pile` ou `face`.")
+
+    user_id = str(ctx.author.id)
+    if economy.get(user_id, {}).get("coins", 0) < mise:
+        return await ctx.send("❌ Tu n'as pas assez de coins.")
+
+    # Tirage
+    resultat = random.choice(["pile", "face"])
+    if choix == resultat:
+        gain = mise
+        update_coins(ctx.author.id, gain)
+        await ctx.send(f"🎉 C'est **{resultat}** ! Tu as gagné **+{gain}💰**.")
+    else:
+        update_coins(ctx.author.id, -mise)
+        await ctx.send(f"💀 C'est **{resultat}**... Tu perds **-{mise}💰**.")
+
+# -------------------------
+# 🎰 Slots
+# -------------------------
+@bot.command()
+async def slots(ctx, mise: int):
+    """Machine à sous avec mise de coins"""
+    user_id = str(ctx.author.id)
+    if economy.get(user_id, {}).get("coins", 0) < mise:
+        return await ctx.send("❌ Tu n'as pas assez de coins.")
+
+    emojis = ["🍒", "🍋", "🔔", "⭐", "7️⃣"]
+    tirage = [random.choice(emojis) for _ in range(3)]
+
+    msg = f"🎰 | {' | '.join(tirage)} | 🎰\n"
+    gain = 0
+
+    if len(set(tirage)) == 1:  # 3 identiques
+        gain = mise * 5
+        msg += f"🎉 JACKPOT ! Tu gagnes **{gain}💰**"
+    elif len(set(tirage)) == 2:  # 2 identiques
+        gain = mise * 2
+        msg += f"✨ Deux symboles identiques ! Tu gagnes **{gain}💰**"
+    else:
+        gain = -mise
+        msg += f"💀 Rien... Tu perds **{mise}💰**"
+
+    update_coins(ctx.author.id, gain)
+    await ctx.send(msg)
+
+
+import asyncio
+import yt_dlp
+
+# Charger la liste des musiques
+def load_blindlist():
+    with open("blindlist.txt", "r", encoding="utf-8") as f:
+        return [line.strip().split(";") for line in f.readlines()]
+
+# -------------------------
+# 🎵 Blind test
+# -------------------------
+@bot.command()
+async def blind(ctx):
+    """Lance un blind test (joue 10s d'une musique)"""
+    if not ctx.author.voice or not ctx.author.voice.channel:
+        return await ctx.send("❌ Tu dois être dans un salon vocal.")
+
+    voice_channel = ctx.author.voice.channel
+    if ctx.voice_client is None:
+        await voice_channel.connect()
+    elif ctx.voice_client.channel != voice_channel:
+        await ctx.voice_client.move_to(voice_channel)
+
+    # Choisir une musique
+    musiques = load_blindlist()
+    url, titre = random.choice(musiques)
+
+    # Préparer le flux audio
+    ydl_opts = {'format': 'bestaudio', 'noplaylist': True}
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+        audio_url = info['url']
+
+    vc = ctx.voice_client
+    vc.play(discord.FFmpegPCMAudio(audio_url), after=lambda e: print("Lecture terminée."))
+
+    await ctx.send("🎵 Blind Test lancé ! Devine la musique en moins de **10 secondes** !")
+
+    # Attendre réponses
+    def check(m):
+        return m.channel == ctx.channel and not m.author.bot
+
+    winner = None
+    try:
+        while True:
+            msg = await bot.wait_for("message", timeout=10, check=check)
+            if titre.lower() in msg.content.lower():
+                winner = msg.author
+                break
+    except asyncio.TimeoutError:
+        pass
+
+    vc.stop()
+    await asyncio.sleep(1)
+    await vc.disconnect()
+
+    if winner:
+        update_coins(winner.id, 15)
+        await ctx.send(f"🏆 {winner.mention} a trouvé ! C’était **{titre}** (+15💰)")
+    else:
+        await ctx.send(f"⏱️ Temps écoulé ! La réponse était : **{titre}**")
 
 
 # ------------------------- 
