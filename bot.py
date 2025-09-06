@@ -167,7 +167,14 @@ embed3.add_field(name="+join_tournoi", value="Rejoindre le tournoi du jour", inl
 embed3.add_field(name="+classement_jour", value="Afficher le classement du jour", inline=False)
 embed3.add_field(name="+wiki [sujet]", value="Recherche un sujet sur Wikipédia et vous donne la description", inline=False)
 embed3.add_field(name="+trad", value="Choisissez parmi les langues discponibles et traduisez ce que vous voulez", inline=False)
-embed3.add_field(name="Plus de commandes", value="D'autres commandes d'aides viendront ultérieurement", inline=False)
+embed3.add_field(name="+money", value="Affiche votre solde de coins", inline=False)
+embed3.add_field(name="+daily", value="Réclamez votre récompense quotidienne de coins", inline=False)
+embed3.add_field(name="+pay [user] [amount]", value="Payez un autre utilisateur avec vos coins", inline=False)
+embed3.add_field(name="+shop", value="Affiche la boutique où vous pouvez acheter des rôles avec vos coins", inline=False)
+embed3.add_field(name="+buy [role]", value="Achetez un rôle dans la boutique avec vos coins", inline=False)
+embed3.add_field(name="+coinflip [amount] [pile/face]", value="Jouez à pile ou face pour doubler vos coins", inline=False)
+embed3.add_field(name="+slots [amount]", value="Jouez aux machines à sous pour gagner des coins", inline=False)
+embed3.add_field(name="+blind", value="Participez à un blindtest (UNIQUEMENT DANS DES SALONS VOCAUX)", inline=False)
 pages.append(embed3)
 
 # Classe de pagination
@@ -1101,7 +1108,7 @@ async def coinflip(ctx, choix: str, mise: int):
         await ctx.send(f"🎉 C'est **{resultat}** ! Tu as gagné **+{gain}💰**.")
     else:
         update_coins(ctx.author.id, -mise)
-        await ctx.send(f"💀 C'est **{resultat}**... Tu perds **-{mise}💰**.")
+        await ctx.send(f"💀 C'est **{resultat}**... Tu perds **-{mise*2}💰**.")
 
 # -------------------------
 # 🎰 Slots
