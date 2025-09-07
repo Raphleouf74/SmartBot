@@ -1147,6 +1147,11 @@ import yt_dlp
 def load_blindlist():
     with open("blindlist.txt", "r", encoding="utf-8") as f:
         return [line.strip().split(";") for line in f.readlines()]
+    
+FFMPEG_OPTIONS = {
+    'options': '-vn',
+    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5'
+}
 
 # -------------------------
 # 🎵 Blind test
@@ -1159,26 +1164,28 @@ async def blind(ctx):
 
     voice_channel = ctx.author.voice.channel
     if ctx.voice_client is None:
-        await voice_channel.connect()
+        vc = await voice_channel.connect()
     elif ctx.voice_client.channel != voice_channel:
-        await ctx.voice_client.move_to(voice_channel)
+        vc = await ctx.voice_client.move_to(voice_channel)
+    else:
+        vc = ctx.voice_client
 
-    # Choisir une musique
+    # Charger musiques
     musiques = load_blindlist()
     url, titre = random.choice(musiques)
 
-    # Préparer le flux audio
+    # Préparer flux audio
     ydl_opts = {'format': 'bestaudio', 'noplaylist': True}
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
         audio_url = info['url']
 
-    vc = ctx.voice_client
-    vc.play(discord.FFmpegPCMAudio(audio_url), after=lambda e: print("Lecture terminée."))
+    source = discord.FFmpegPCMAudio(audio_url, **FFMPEG_OPTIONS)
+    vc.play(source)
 
     await ctx.send("🎵 Blind Test lancé ! Devine la musique en moins de **10 secondes** !")
 
-    # Attendre réponses
+    # Attente des réponses
     def check(m):
         return m.channel == ctx.channel and not m.author.bot
 
