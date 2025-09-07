@@ -7,3 +7,5 @@ discord.py
 deep-translator
 asyncio
 yt_dlp
+PyNaCl
+cffi
