@@ -13,8 +13,21 @@ import os
 import wikipedia
 wikipedia.set_lang("fr")  # langue par défaut = français
 from deep_translator import GoogleTranslator
+import os
+import gdown
 
+MUSIC_DIR = "Musics"
+DRIVE_URL = "https://drive.google.com/drive/folders/12ykstPlTFiyGeTklVnNsfatJegFNtqRY?usp=drive_link"
 
+# Télécharger les musiques si absentes
+def setup_musics():
+    if not os.path.exists(MUSIC_DIR):
+        os.makedirs(MUSIC_DIR)
+
+    # Télécharger le dossier Google Drive en zip
+    os.system(f"gdown --folder {DRIVE_URL} -O {MUSIC_DIR}")
+
+setup_musics()
 
 
 # Récupération des variables d'environnement
