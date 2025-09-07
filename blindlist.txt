@@ -1,13 +1,10 @@
-https://www.youtube.com/watch?v=dQw4w9WgXcQ;Rick Astley - Never Gonna Give You Up
-https://www.youtube.com/watch?v=3JZ_D3ELwOQ;Eminem - Without Me
-https://www.youtube.com/watch?v=9bZkp7q19f0;PSY - Gangnam Style
-https://www.youtube.com/watch?v=kJQP7kiw5Fk;Luis Fonsi - Despacito
-https://www.youtube.com/watch?v=09R8_2nJtjg;Maroon 5 - Sugar
-https://www.youtube.com/watch?v=SlPhMPnQ58k;Ed Sheeran - Shape of You
-https://www.youtube.com/watch?v=CevxZvSJLk8;Katy Perry - Roar
-https://www.youtube.com/watch?v=2Vv-BfVoq4g;Ed Sheeran - Perfect
-https://www.youtube.com/watch?v=YQHsXMglC9A;Adele - Hello
-https://www.youtube.com/watch?v=hT_nvWreIhg;OneRepublic - Counting Stars
-https://www.youtube.com/watch?v=RgKAFK5djSk;Wiz Khalifa - See You Again
-https://www.youtube.com/watch?v=pRpeEdMmmQ0;Shakira - Waka Waka
-https://www.youtube.com/watch?v=uelHwf8o7_U;Eminem - Love The Way You Lie
+Musics/Shakira - WWaka.mp3;Shakira - Waka Waka
+Musics/Wiz Khalifa - SYAgain.mp3;Wiz Khalifa - See You Again
+Musics/OneRepublic - CStars.mp3;OneRepublic - Counting Stars
+Musics/Adele - Hello.mp3;Adele - Hello
+Musics/Ed Sheeran - Perfect.mp3;Ed Sheeran - Perfect
+Musics/Maroon 5 - Memories.mp3;Maroon 5 - Memories
+Musics/Maroon 5 - Sugar.mp3;Maroon 5 - Sugar
+Musics/Luis Fonsi - Despacito.mp3;Luis Fonsi - Despacito
+Musics/PSY - GStyle.mp3;PSY - Gangnam Style
+Musics/Rick Astley - NGGYUp.mp3;Rick Astley - Never Gonna Give You Up

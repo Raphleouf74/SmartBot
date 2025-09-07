@@ -1143,22 +1143,18 @@ async def slots(ctx, mise: int):
 import asyncio
 import yt_dlp
 
-# Charger la liste des musiques
-def load_blindlist():
-    with open("blindlist.txt", "r", encoding="utf-8") as f:
-        return [line.strip().split(";") for line in f.readlines()]
-    
 FFMPEG_OPTIONS = {
     'options': '-vn',
     'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5'
 }
 
-# -------------------------
-# 🎵 Blind test
-# -------------------------
+def load_blindlist():
+    with open("blindlist.txt", "r", encoding="utf-8") as f:
+        return [line.strip().split(";") for line in f.readlines()]
+
 @bot.command()
 async def blind(ctx):
-    """Lance un blind test (joue 10s d'une musique)"""
+    """Blind Test avec musiques locales"""
     if not ctx.author.voice or not ctx.author.voice.channel:
         return await ctx.send("❌ Tu dois être dans un salon vocal.")
 
@@ -1170,22 +1166,17 @@ async def blind(ctx):
     else:
         vc = ctx.voice_client
 
-    # Charger musiques
+    # Charger une musique
     musiques = load_blindlist()
-    url, titre = random.choice(musiques)
+    fichier, titre = random.choice(musiques)
 
-    # Préparer flux audio
-    ydl_opts = {'format': 'bestaudio', 'noplaylist': True}
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=False)
-        audio_url = info['url']
-
-    source = discord.FFmpegPCMAudio(audio_url, **FFMPEG_OPTIONS)
+    # Jouer la musique locale
+    source = discord.FFmpegPCMAudio(fichier, **FFMPEG_OPTIONS)
     vc.play(source)
 
     await ctx.send("🎵 Blind Test lancé ! Devine la musique en moins de **10 secondes** !")
 
-    # Attente des réponses
+    # Vérifier les réponses
     def check(m):
         return m.channel == ctx.channel and not m.author.bot
 
