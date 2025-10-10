@@ -13,21 +13,56 @@ import os
 import wikipedia
 wikipedia.set_lang("fr")  # langue par défaut = français
 from deep_translator import GoogleTranslator
-import os
 import gdown
 
-MUSIC_DIR = "Musics"
-DRIVE_URL = "https://drive.google.com/drive/folders/12ykstPlTFiyGeTklVnNsfatJegFNtqRY?usp=drive_link"
+API_KEY = os.getenv("API_KEY", "2JX9F7bN1kL0aYQp")  # déjà mis
+app = Flask(__name__)
+
+def check_key():
+    key = request.args.get("key")
+    if key != API_KEY:
+        abort(403)
+
+@app.route("/status")
+def status():
+    check_key()
+    return jsonify({
+        "status": "online" if bot.is_ready() else "starting",
+        "bot": str(bot.user) if bot.user else "starting...",
+        "servers": len(bot.guilds),
+        "users": sum(g.member_count for g in bot.guilds)
+    })
+
+@app.route("/servers")
+def servers():
+    check_key()
+    return jsonify([
+        {"id": str(g.id), "name": g.name, "members": g.member_count}
+        for g in bot.guilds
+    ])
+
+@app.route("/commands")
+def commands():
+    check_key()
+    return jsonify({
+        "ping": "Affiche le ping du bot",
+        "userinfo": "Montre les infos d’un utilisateur",
+        "help": "Liste toutes les commandes"
+    })
+
+
+# MUSIC_DIR = "Musics"
+# DRIVE_URL = "https://drive.google.com/drive/folders/12ykstPlTFiyGeTklVnNsfatJegFNtqRY?usp=drive_link"
 
 # Télécharger les musiques si absentes
-def setup_musics():
-    if not os.path.exists(MUSIC_DIR):
-        os.makedirs(MUSIC_DIR)
+# def setup_musics():
+#     if not os.path.exists(MUSIC_DIR):
+#         os.makedirs(MUSIC_DIR)
 
-    # Télécharger le dossier Google Drive en zip
-    os.system(f"gdown --folder {DRIVE_URL} -O {MUSIC_DIR}")
+#     # Télécharger le dossier Google Drive en zip
+#     os.system(f"gdown --folder {DRIVE_URL} -O {MUSIC_DIR}")
 
-setup_musics()
+# setup_musics()
 
 
 # Récupération des variables d'environnement
@@ -38,7 +73,7 @@ OWNER_ID = 1067745915915481098
 # Init bot Discord
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="/", intents=intents)
 
 # Init Flask
 app = Flask(__name__)
@@ -1153,65 +1188,65 @@ async def slots(ctx, mise: int):
     await ctx.send(msg)
 
 
-import asyncio
-import yt_dlp
+# import asyncio
+# import yt_dlp
 
-FFMPEG_OPTIONS = {
-    'options': '-vn',
-    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5'
-}
+# FFMPEG_OPTIONS = {
+#     'options': '-vn',
+#     'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5'
+# }
 
-def load_blindlist():
-    with open("blindlist.txt", "r", encoding="utf-8") as f:
-        return [line.strip().split(";") for line in f.readlines()]
+# def load_blindlist():
+#     with open("blindlist.txt", "r", encoding="utf-8") as f:
+#         return [line.strip().split(";") for line in f.readlines()]
 
-@bot.command()
-async def blind(ctx):
-    """Blind Test avec musiques locales"""
-    if not ctx.author.voice or not ctx.author.voice.channel:
-        return await ctx.send("❌ Tu dois être dans un salon vocal.")
+# @bot.command()
+# async def blind(ctx):
+#     """Blind Test avec musiques locales"""
+#     if not ctx.author.voice or not ctx.author.voice.channel:
+#         return await ctx.send("❌ Tu dois être dans un salon vocal.")
 
-    voice_channel = ctx.author.voice.channel
-    if ctx.voice_client is None:
-        vc = await voice_channel.connect()
-    elif ctx.voice_client.channel != voice_channel:
-        vc = await ctx.voice_client.move_to(voice_channel)
-    else:
-        vc = ctx.voice_client
+#     voice_channel = ctx.author.voice.channel
+#     if ctx.voice_client is None:
+#         vc = await voice_channel.connect()
+#     elif ctx.voice_client.channel != voice_channel:
+#         vc = await ctx.voice_client.move_to(voice_channel)
+#     else:
+#         vc = ctx.voice_client
 
-    # Charger une musique
-    musiques = load_blindlist()
-    fichier, titre = random.choice(musiques)
+#     # Charger une musique
+#     musiques = load_blindlist()
+#     fichier, titre = random.choice(musiques)
 
-    # Jouer la musique locale
-    source = discord.FFmpegPCMAudio(fichier, **FFMPEG_OPTIONS)
-    vc.play(source)
+#     # Jouer la musique locale
+#     source = discord.FFmpegPCMAudio(fichier, **FFMPEG_OPTIONS)
+#     vc.play(source)
 
-    await ctx.send("🎵 Blind Test lancé ! Devine la musique en moins de **10 secondes** !")
+#     await ctx.send("🎵 Blind Test lancé ! Devine la musique en moins de **10 secondes** !")
 
-    # Vérifier les réponses
-    def check(m):
-        return m.channel == ctx.channel and not m.author.bot
+#     # Vérifier les réponses
+#     def check(m):
+#         return m.channel == ctx.channel and not m.author.bot
 
-    winner = None
-    try:
-        while True:
-            msg = await bot.wait_for("message", timeout=10, check=check)
-            if titre.lower() in msg.content.lower():
-                winner = msg.author
-                break
-    except asyncio.TimeoutError:
-        pass
+#     winner = None
+#     try:
+#         while True:
+#             msg = await bot.wait_for("message", timeout=10, check=check)
+#             if titre.lower() in msg.content.lower():
+#                 winner = msg.author
+#                 break
+#     except asyncio.TimeoutError:
+#         pass
 
-    vc.stop()
-    await asyncio.sleep(1)
-    await vc.disconnect()
+#     vc.stop()
+#     await asyncio.sleep(1)
+#     await vc.disconnect()
 
-    if winner:
-        update_coins(winner.id, 15)
-        await ctx.send(f"🏆 {winner.mention} a trouvé ! C’était **{titre}** (+15💰)")
-    else:
-        await ctx.send(f"⏱️ Temps écoulé ! La réponse était : **{titre}**")
+#     if winner:
+#         update_coins(winner.id, 15)
+#         await ctx.send(f"🏆 {winner.mention} a trouvé ! C’était **{titre}** (+15💰)")
+#     else:
+#         await ctx.send(f"⏱️ Temps écoulé ! La réponse était : **{titre}**")
 
 
 # ------------------------- 
