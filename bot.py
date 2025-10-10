@@ -1210,19 +1210,30 @@ async def blind(ctx):
         return await ctx.send("❌ Tu dois être dans un salon vocal.")
     channel = ctx.author.voice.channel
 
-    # Vérifie si le bot est déjà connecté
-    if ctx.voice_client:
-        vc = ctx.voice_client
-    else:
-        vc = await channel.connect()
+    try:
+        # Vérifie si le bot est déjà connecté
+        if ctx.voice_client:
+            vc = ctx.voice_client
+        else:
+            vc = await channel.connect()
+    except Exception as e:
+        await ctx.send(f"❌ Impossible de se connecter au vocal : {e}")
+        return
+
     vc_sessions[ctx.guild.id] = vc  # Stocke la connexion
 
     music_dir = "Musics"
     fichier = os.path.join(music_dir, random.choice(os.listdir(music_dir)))
     await ctx.send(os.listdir(music_dir))
     
-    source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(fichier), volume=1.0)
-    vc.play(source)
+    try:
+        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(fichier), volume=1.0)
+        vc.play(source)
+    except Exception as e:
+        await ctx.send(f"❌ Impossible de jouer la musique : {e}")
+        await vc.disconnect()
+        vc_sessions.pop(ctx.guild.id, None)
+        return
 
     while vc.is_playing():
         await asyncio.sleep(1)
