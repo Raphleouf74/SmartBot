@@ -1,21 +1,23 @@
-import discord
-from discord.ext import commands
-from discord.ui import View, Button
-from datetime import timedelta
-import asyncio
-import random
+import os
 import re
 import json
+import random
+import asyncio
+import subprocess
+from datetime import timedelta, datetime
+
+import discord
+from discord.ext import commands, tasks
+from discord.ui import View, Button, Select
 from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
 from threading import Thread
-import os
+
 import wikipedia
-wikipedia.set_lang("fr")  # langue par défaut = français
 from deep_translator import GoogleTranslator
-
-import gdown, os
-
+import yt_dlp
+import gdown
+VOLUME = 1.0  # Volume par défaut (1.0 = 100%)
 MUSIC_DIR = "Musics"
 DRIVE_URL = "https://drive.google.com/drive/folders/12ykstPlTFiyGeTklVnNsfatJegFNtqRY"
 
@@ -23,9 +25,16 @@ os.makedirs(MUSIC_DIR, exist_ok=True)
 
 # Télécharger les fichiers depuis le Drive
 print("🔽 Téléchargement des musiques depuis Google Drive...")
-gdown.download_folder(DRIVE_URL, output=MUSIC_DIR, quiet=False, use_cookies=False)
-print("✅ Téléchargement terminé.")
+try:
+    gdown.download_folder(DRIVE_URL, output=MUSIC_DIR, quiet=False, use_cookies=False)
+    print("✅ Téléchargement terminé.")
+except Exception as e:
+    print(f"❌ Impossible de télécharger depuis Google Drive : {e}")
+    print("➡️ Les musiques seront prises depuis le dossier local /Musics/")
 
+os.makedirs(MUSIC_DIR, exist_ok=True)
+
+os.environ["PATH"] += os.pathsep + os.path.abspath("ffmpeg/bin")
 
 
 import subprocess
@@ -68,13 +77,10 @@ def list_commands():
         "help": "Liste toutes les commandes"
     })
 
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")  # ton token de bot
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN") # ton token de bot
 API_KEY = os.getenv("API_KEY")  # clé secrète API
 OWNER_ID = 1067745915915481098
 
-
-API_KEY = os.getenv("API_KEY")  # clé secrète API
-OWNER_ID = 1067745915915481098
 
 # Init bot Discord
 intents = discord.Intents.default()
@@ -909,7 +915,6 @@ CHANNEL_GENERAL = 1408795790515634297  # 💬 general-tournois
 CHANNEL_GAGNANTS = 1408795241003352126  # 🏆 gagnants-du-jour
 CHANNEL_PLANNING = 1408795407336865832  # 📅 organisation-et-planning
 CHANNEL_REGLEMENT = 1408795561213296691  # 📜 reglement
-from discord.ext import tasks
 
 @tasks.loop(minutes=1)
 async def tournoi_annonce():
@@ -967,7 +972,7 @@ async def wiki(ctx, *, query: str):
         await ctx.send("❌ Aucun article trouvé.")
 
 
-from discord.ui import View, Select
+
 
 LANGUES = {
     "fr": "Français",
@@ -1190,13 +1195,11 @@ async def slots(ctx, mise: int):
 
 
 import asyncio
-import yt_dlp
 
 FFMPEG_OPTIONS = {
     'options': '-vn',
     'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5'
 }
-import os, random, discord
 
 
 vc_sessions = {}
@@ -1224,10 +1227,10 @@ async def blind(ctx):
 
     music_dir = "Musics"
     fichier = os.path.join(music_dir, random.choice(os.listdir(music_dir)))
-    await ctx.send(os.listdir(music_dir))
+    await ctx.send(f"🎵 Musique jouée : **{os.path.basename(fichier)}**")
     
     try:
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(fichier), volume=1.0)
+        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(fichier), volume=VOLUME)
         vc.play(source)
     except Exception as e:
         await ctx.send(f"❌ Impossible de jouer la musique : {e}")
@@ -1247,7 +1250,7 @@ async def blind(ctx):
 
 
     await ctx.send("🎵 Blind Test lancé ! Devine la musique en moins de **30 secondes** !")
-
+    titre_simple = titre.split(" - ")[-1].strip().lower()
     # Vérifier les réponses
     def check(m):
         return m.channel == ctx.channel and not m.author.bot
@@ -1256,7 +1259,8 @@ async def blind(ctx):
     try:
         while True:
             msg = await bot.wait_for("message", timeout=30, check=check)
-            if titre.lower() in msg.content.lower():
+        # Vérifie si la réponse contient le titre complet ou juste le titre
+            if titre.lower() in msg.content.lower() or titre_simple in msg.content.lower():
                 winner = msg.author
                 break
     except asyncio.TimeoutError:
@@ -1293,6 +1297,14 @@ async def restart(ctx):
     if not ctx.author.voice:
         return await ctx.send("❌ Tu dois être dans un salon vocal.")
     await ctx.invoke(bot.get_command("blind"))
+@bot.command()
+async def volume(ctx, value: float):
+    """Règle le volume du blindtest (0.0 à 2.0)"""
+    global VOLUME
+    if not (0.0 <= value <= 2.0):
+        return await ctx.send("❌ Le volume doit être entre 0.0 et 2.0.")
+    VOLUME = value
+    await ctx.send(f"🔊 Volume réglé à {int(VOLUME*100)}%")
 # ------------------------- 
 # Quand le bot est prêt 
 # ------------------------- 
