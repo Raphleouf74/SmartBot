@@ -191,6 +191,7 @@ embed2 = discord.Embed(
     color=discord.Color.green()
 )
 embed2.add_field(name="+shutdown", value="Éteins le bot", inline=False)
+embed2.add_field(name="+givecoins [user] [amount]", value="Donne de l'argent à un user sans retrait d'argent.", inline=False)
 embed2.add_field(name="+ping", value="Annonce le ping du bot", inline=False)
 embed2.add_field(name="+start_tournoi", value="Lance le tournoi du jour", inline=False)
 embed2.add_field(name="+end_tournoi", value="Termine le tournoi du jour", inline=False)
